@@ -10,3 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo $GITHUB_REF
+      - name: Checkout
+        uses: actions/checkout@v1
+      - run: cat .github/workflows/release.yaml
