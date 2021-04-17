@@ -7,9 +7,39 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        include:
+          - os: ubuntu-latest
+            output-name: flutterwebtools
+            asset_name: FlutterWebTools Linux
+          - os: macOS-latest
+            output-name: flutterwebtools
+            asset_name: FlutterWebTools MacOS
+          - os: windows-latest
+            output-name: flutterwebtools.exe
+            asset_name: FlutterWebTools Windows
+
     steps:
       - run: echo $GITHUB_REF
       - name: Checkout
         uses: actions/checkout@v1
       - run: cat .github/workflows/release.yaml
+      - name: setup dart
+        uses: DanTup/gh-actions/setup-dart@master
+      - name: create build dir
+        run: mkdir build
+      - run: dart pub get
+      - name: build
+        run: dart2native bin/main.dart -v -o build/${{ matrix.output-name }}
+      - name: upload to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/${{ matrix.output-name }}
+          asset_name: ${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
+          overwrite: true
