@@ -1,0 +1,13 @@
+name: Build on Push
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: DanTup/gh-actions/setup-dart@master
+      - run: dart pub get
+      - run: dart test
