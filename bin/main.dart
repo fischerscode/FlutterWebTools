@@ -41,7 +41,7 @@ void main(List<String> arguments) {
 
   ArgResults argResults = parser.parse(arguments);
   parser.usage;
-  if (argResults["help"]) {
+  if (argResults["help"] || argResults.arguments.length == 0) {
     stdout.writeln(parser.usage);
     exit(0);
   }
