@@ -3,7 +3,7 @@ name: Tests
 on: [push]
 
 jobs:
-  test:
+  dart_test:
     runs-on: ubuntu-latest
 
     steps:
