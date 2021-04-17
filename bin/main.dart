@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:file/local.dart';
 import 'package:flutter_web_tools/flutter_web_tools.dart' as flutter_web_tools;
 
 void main(List<String> arguments) {
@@ -55,6 +56,7 @@ void main(List<String> arguments) {
       flutter_web_tools.appendVersion(
         directory: argResults["dir"],
         buildDirectory: argResults["build-dir"],
+        fileSystem: LocalFileSystem(),
       );
     }
   }
@@ -66,6 +68,7 @@ void main(List<String> arguments) {
     } else {
       flutter_web_tools.appendBuildID(
         buildDirectory: argResults["build-dir"],
+        fileSystem: LocalFileSystem(),
       );
     }
   }
