@@ -1,6 +1,9 @@
 name: Tests
 
-on: [push]
+on:
+  push:
+  schedule: # execute every 24 hours
+    - cron: "1 0 * * 1"
 
 jobs:
   dart_test:
