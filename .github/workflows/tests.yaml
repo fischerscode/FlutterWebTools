@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-  schedule: # execute every 24 hours
+  schedule: # execute every week
     - cron: "1 0 * * 1"
 
 jobs:
